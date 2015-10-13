@@ -11,18 +11,18 @@ def index():
         return render_template("index.html")
     if request.method=="POST":
         button = request.form['button']
-        uname=request.form['username']
-        pword=request.form['password']
-        input=request.form['input']
+        username=request.form['username']
+        password=request.form['password']
         if button=="Login":
-            if utils.authenticate(uname,pword):
+            if utils.authenticate(username,password):
                 conn = sqlite3.connect("demo.db")
                 c = conn.cursor()
-                q = '''insert into users values("'''+uname+'''","'''+pword+'''")'''
+                q = '''insert into users values("'''+username+'''","'''+password+'''")'''
                 c.execute(q)
-                return render_template("homepage.html",uname=uname)
+                return render_template("homepage.html",username=username)
             else:
                 return "Wrong combo"
+        #if button=="Post":            
         else:
             return "bye"
 
@@ -30,4 +30,4 @@ def index():
 #Run the app. The host COULD be IP address, but normally put it down as 0.0.0.0 so that anyone can use the app.
 if __name__=="__main__":
     app.debug=True
-    app.run(host='0.0.0.0',port=7000)
+    app.run(host='0.0.0.0',port=8000)
