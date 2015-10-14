@@ -15,10 +15,6 @@ def index():
         password=request.form['password']
         if button=="Login":
             if utils.authenticate(username,password):
-                conn = sqlite3.connect("demo.db")
-                c = conn.cursor()
-                q = '''insert into users values("'''+username+'''","'''+password+'''")'''
-                c.execute(q)
                 return render_template("homepage.html",username=username)
             else:
                 return "Wrong combo"
