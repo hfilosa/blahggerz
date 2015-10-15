@@ -1,8 +1,16 @@
 from flask import Flask, render_template, request
 import utils
 import sqlite3
+import shelve
 
 app = Flask(__name__)
+
+s = shelve.open('users.db', writeback = True)
+s['wayez'] = {'password' : 'chowdhury'}
+s['winton'] = {'password' : 'yee'}
+s['jerry'] = {'password' : 'lei'}
+s['kathy'] = {'password' : 'wang'}
+s.close()
 
 @app.route("/index", methods=["GET","POST"])
 @app.route("/", methods=["GET","POST"])
@@ -16,6 +24,25 @@ def index():
         if button=="Login":
             if utils.authenticate(username,password):
                 return render_template("homepage.html",username=username)
+            else:
+                return "Wrong combo"
+        #if button=="Post":            
+        else:
+            return "bye"
+            
+@app.route("/register", methods = ["GET", "POST"])
+def register():
+    if request.method=="GET":
+    	return render_template("register.html", taken = False, success = False)
+    if request.method=="POST":
+        button = request.form['button']
+        username=request.form['username']
+        password=request.form['password']
+        if button=="Register":
+            if utils.authenticate(username,password) == "taken":
+                return render_template("register.html", taken = True, success = False)
+            elif utils.authenticate(username,password) == "success":
+                return render_template("register.html", taken = False, success = True)
             else:
                 return "Wrong combo"
         #if button=="Post":            

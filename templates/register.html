@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--<link rel="shortcut icon" href="favicon.ico">-->
+<title>Blahggerz</title>
+<meta charset="UTF-8">
+<style>
+body
+{ 
+background-image:url('''+img+''');
+background-repeat:no-repeat;
+background-attachment:fixed;
+background-position:center
+}
+body {
+    font-family: Futura, Helvetica, sans-serif;
+    text-align: Center;
+    <!--color: rgb(255,255,255);-->
+}
+</style>
+</head>
+
+<body>
+<h1>Blahggerz</h1>
+{% if taken == True %}
+	Sorry that username is taken, please enter a different one
+{% endif %}
+{% if success == True %}
+	<h1>Congrats! You created a Blahggerz account</h1>
+	<a href="http://wayez.koding.io:8000/index">Login Here!</a>
+{% else %}
+	<form method="post">
+	<input type="text" name="username" placeholder="Username">
+	<br>
+	<input type="password" name="password" placeholder="Password">
+	<p>
+	<input type="submit" name ="button" value="Register">
+	</form>
+	Already have an account?
+	<br>
+	<a href="http://wayez.koding.io:8000/index">Login Here!</a>
+{% endif %}
+</body>
+</html>
