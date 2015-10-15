@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import utils
 import sqlite3
 import shelve
@@ -12,7 +12,16 @@ s['jerry'] = {'password' : 'lei'}
 s['kathy'] = {'password' : 'wang'}
 s.close()
 
+# SQLITE POST TABLE CREATION 
+posts = "posts.db" 
+con=sqlite3.connect(posts)
+c = con.cursor()
+c.execute('CREATE TABLE posts (name TEXT)')
+c.execute("ALTER TABLE posts ADD COLUMN 'time' TEXT")
+c.execute("ALTER TABLE posts ADD COLUMN 'msg' TEXT") 
+con.commit()
 
+currentUser = ""
 
 @app.route("/index", methods=["GET","POST"])
 @app.route("/", methods=["GET","POST"])
@@ -25,6 +34,7 @@ def index():
         password=request.form['password']
         if button=="Login":
             if utils.authenticate(username,password):
+                currentUser = username
                 return render_template("homepage.html",username=username)
             else:
                 return "Wrong combo"
@@ -54,20 +64,18 @@ def register():
 
 @app.route("/postnew", methods=["GET","POST"])
 def postnew():
-    posts = "posts.sqlite"
     if request.method=="GET":
         return render_template("postnew.html")
     if request.method=="POST":
-        con=sqlite3.connect(posts)
-        c = con.cursor()
-      # make username a universal variable?
         postButton = request.form['"postButton']
-        uname = ""
+        uname = currentUser
         time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
         msg = request.form['post']
         if postButton = "post": 
             c.execute("INSERT INTO posts VALUES(uname, time, msg)")
+            con.commit()
             return redirect("/index")
+
         
 #Debug is true to get better error messages
 #Run the app. The host COULD be IP address, but normally put it down as 0.0.0.0 so that anyone can use the app.
