@@ -17,12 +17,12 @@ def add(uname, pword):
 	s = shelve.open('users.db', writeback = True)
 	user = str(uname)
 	password = str(pword)
-	if (s.has_key(user)):
-		return "taken"
+	if s.has_key(user):
+		response = "taken"
 	else:
 		s[user] = {'password' : password}
 		response = "success"
-	s.close
+	s.close()
 	return response
 		
 	
