@@ -76,6 +76,11 @@ def postnew():
             con.commit()
             return redirect("/index")
 
+@app.route("/posts")
+def posts():
+    return render_template("posts.html")
+
+
         
 #Debug is true to get better error messages
 #Run the app. The host COULD be IP address, but normally put it down as 0.0.0.0 so that anyone can use the app.
