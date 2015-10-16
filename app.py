@@ -71,7 +71,7 @@ def postnew():
         uname = currentUser
         time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
         msg = request.form['post']
-        if postButton = "post": 
+        if postButton == "post": 
             c.execute("INSERT INTO posts VALUES(uname, time, msg)")
             con.commit()
             return redirect("/index")
