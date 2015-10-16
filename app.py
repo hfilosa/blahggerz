@@ -75,7 +75,7 @@ def postnew():
         if postButton == "post": 
             c.execute("INSERT INTO posts VALUES(%s, %s, %s)", uname, time, msg)
             con.commit()
-            return redirect("/postnew")
+            return render_template("postnew.html")
         
 #@app.route("/posts")
 #def posts():
