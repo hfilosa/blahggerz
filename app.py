@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect
+import datetime
 import utils
 import sqlite3
 import shelve
@@ -61,20 +62,27 @@ def register():
 @app.route("/postnew", methods=["GET","POST"])
 def postnew():
     if request.method=="GET":
+#        s = ''
+#        for row in con:
+#            s += row
+#        return s
         return render_template("postnew.html")
     if request.method=="POST":
-        postButton = request.form['"postButton']
+        postButton = request.form['postButton']
         uname = currentUser
         time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
         msg = request.form['post']
         if postButton == "post": 
-            c.execute("INSERT INTO posts VALUES(uname, time, msg)")
+            c.execute("INSERT INTO posts VALUES(%s, %s, %s)", uname, time, msg)
             con.commit()
-            return redirect("/index")
-
-@app.route("/posts")
-def posts():
-    return render_template("posts.html")
+            return redirect("/postnew")
+        
+#@app.route("/posts")
+#def posts():
+#    for row in con:
+#        print row
+        
+    #return render_template("posts.html")
 
 
         
