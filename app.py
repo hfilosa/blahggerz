@@ -16,10 +16,6 @@ s.close()
 posts = "posts.db" 
 con=sqlite3.connect(posts)
 c = con.cursor()
-c.execute('CREATE TABLE posts (name TEXT)')
-c.execute("ALTER TABLE posts ADD COLUMN 'time' TEXT")
-c.execute("ALTER TABLE posts ADD COLUMN 'msg' TEXT") 
-con.commit()
 
 currentUser = ""
 
