@@ -14,9 +14,9 @@ s['kathy'] = {'password' : 'wang'}
 s.close()
 
 # SQLITE POST TABLE CREATION 
-posts = "posts.db" 
-con=sqlite3.connect(posts)
-c = con.cursor()
+#posts = "posts.db" 
+#con=sqlite3.connect(posts)
+#c = con.cursor()
 
 currentUser = ""
 
@@ -59,23 +59,28 @@ def register():
         else:
             return "bye"
 
-@app.route("/postnew", methods=["GET","POST"])
+@app.route("/postnew") #, methods=["GET","POST"])
 def postnew():
-    if request.method=="GET":
+    posts = "posts.db"
+    con=sqlite3.connect(posts)
+    c = con.cursor()
+
+    #if request.method=="GET":
 #        s = ''
 #        for row in con:
 #            s += row
 #        return s
-        return render_template("postnew.html")
-    if request.method=="POST":
-        postButton = request.form['postButton']
-        uname = currentUser
-        time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
-        msg = request.form['post']
-        if postButton == "post": 
-            c.execute("INSERT INTO posts VALUES(%s, %s, %s)", uname, time, msg)
-            con.commit()
-            return render_template("postnew.html")
+    #    return render_template("postnew.html")
+    #if request.method=="POST":
+    postButton = request.form['postButton']
+    uname = currentUser
+    time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+    msg = request.form['post']
+    if postButton == "post": 
+        c.execute("INSERT INTO posts VALUES(%s, %s, %s)", uname, time, msg)
+        con.commit()
+        return "got here"
+            #return render_template("postnew.html")
         
 #@app.route("/posts")
 #def posts():
