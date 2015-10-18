@@ -27,7 +27,7 @@ c = conn.cursor()
 conn.commit()
 conn.close()
 
-print utils.authenticate('wayez', 'chowdhury')
+#print utils.authenticate('wayez', 'chowdhury')
 # SQLITE POST TABLE CREATION 
 #posts = "posts.db" 
 #con=sqlite3.connect(posts)

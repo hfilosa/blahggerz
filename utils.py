@@ -36,13 +36,13 @@ def add(uname, pword):
 	c = conn.cursor()
 	userN = str(uname)
 	passW = str(pword)
-	result = c.execute('SELECT DISTINCT usersList.user, usersList.pass FROM usersList WHERE usersList.user = ?', (userN,))
+	result = c.execute('SELECT DISTINCT usersList.user,usersList.pass FROM usersList WHERE usersList.user = ?', (userN,))
 	for x in result:
 		if x[0] == userN:
 			response = "taken"
-		elif x[1] == passW:
-			response = "success"
-			inputUser(userN, passW)
+	if response != "taken":
+		response = "success"
+		inputUser(userN, passW)
 	conn.commit()
 	conn.close()
 	return response
