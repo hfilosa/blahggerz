@@ -37,16 +37,19 @@ currentUser = ""
 @app.route("/", methods=["GET","POST"])
 def index():
     if request.method=="GET":
-        return render_template("index.html")
+        return render_template("index.html", log  = "" )
     if request.method=="POST":
         button = request.form['button']
         username=request.form['username']
         password=request.form['password']
         if button=="Login":
-            if utils.authenticate(username,password):
+            if utils.authenticate(username,password) == "success":
                 currentUser = username
                 return render_template("homepage.html",username=username)
+            elif utils.authenticate(username,password) == "noUser":
+            	return render_template("index.html", log = "noUser")
             else:
+            	return render_template("index.html", log = "fail")
                 return "Wrong combo"
         #if button=="Post":            
         else:

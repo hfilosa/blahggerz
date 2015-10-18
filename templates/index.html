@@ -64,5 +64,10 @@ body {
 <input type="submit" class="btn btn-smll btn-primary btn-block" name ="button" value="Login">
 </div>
 </form>
+{% if log == "fail" %}
+<font color = "red">Username and Password do not match</font>
+{% elif log == "noUser" %}
+<font color = "red">Username does not exist, please make an account</font>
+{% endif %}
 </body>
 </html>

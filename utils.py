@@ -6,10 +6,13 @@ def authenticate(uname,pword):
 	q = 'SELECT usersList.user FROM usersList WHERE usersList.pass = %(user)s'
 	userN = str(uname)
 	passW = str(pword)
-	result = c.execute('SELECT DISTINCT usersList.user FROM usersList WHERE usersList.user = ? AND usersList.pass = ?', (userN, passW))
+	result = c.execute('SELECT DISTINCT usersList.pass FROM usersList WHERE usersList.user = ?', (userN,))
 	#result = c.execute('SELECT DISTINCT usersList.user FROM usersList WHERE usersList.user == ? AND usersList.pass == ?', cred)
 	for x in result:
-		print x
+		if x == passW:
+			return "success"
+		return "fail"
+	return "noUser"
 	conn.commit()
 	conn.close()
 	
