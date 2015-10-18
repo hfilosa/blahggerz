@@ -6,6 +6,9 @@ import shelve
 
 app = Flask(__name__)
 
+#print utils.add('peter', 'stuyvesant')
+
+
 conn = sqlite3.connect("userList.db")
 c = conn.cursor()
 ###CREATED TABLE CONTAINING USERNAMES AND PASSWORDS AND HARDCODED ALL OF OUR NAMES INTO IT
@@ -24,8 +27,7 @@ c = conn.cursor()
 conn.commit()
 conn.close()
 
-#utils.authenticate('wayez', 'chowdhury')
-
+print utils.authenticate('wayez', 'chowdhury')
 # SQLITE POST TABLE CREATION 
 #posts = "posts.db" 
 #con=sqlite3.connect(posts)

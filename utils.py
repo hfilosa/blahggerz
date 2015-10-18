@@ -8,13 +8,16 @@ def authenticate(uname,pword):
 	passW = str(pword)
 	result = c.execute('SELECT DISTINCT usersList.pass FROM usersList WHERE usersList.user = ?', (userN,))
 	#result = c.execute('SELECT DISTINCT usersList.user FROM usersList WHERE usersList.user == ? AND usersList.pass == ?', cred)
-	for x in result:
-		if x == passW:
+	return loginResponse(result, passW)
+	conn.commit()
+	conn.close()
+
+def loginResponse(realPass, inputPass):
+	for x in realPass:
+		if x[0] == inputPass:
 			return "success"
 		return "fail"
 	return "noUser"
-	conn.commit()
-	conn.close()
 	
 	#itWorked = False
 	#s = shelve.open('users.db')
@@ -29,16 +32,24 @@ def authenticate(uname,pword):
 
 def add(uname, pword):
 	response = "failed"
-	s = shelve.open('users.db', writeback = True)
-	user = str(uname)
-	password = str(pword)
-	if s.has_key(user):
-		response = "taken"
-	else:
-		s[user] = {'password' : password}
-		response = "success"
-	s.close()
+	conn = sqlite3.connect("userList.db")
+	c = conn.cursor()
+	userN = str(uname)
+	passW = str(pword)
+	result = c.execute('SELECT DISTINCT usersList.user, usersList.pass FROM usersList WHERE usersList.user = ?', (userN,))
+	for x in result:
+		if x[0] == userN:
+			response = "taken"
+		elif x[1] == passW:
+			response = "success"
+			inputUser(userN, passW)
+	conn.commit()
+	conn.close()
 	return response
-		
-	
-	
+
+def inputUser(username, password):
+	conn = sqlite3.connect("userList.db")
+	c = conn.cursor()
+	c.execute('INSERT INTO usersList VALUES (?, ?)', (username, password))
+	conn.commit()
+	conn.close()
