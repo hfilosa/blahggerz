@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html>
+<head>
+<!--<link rel="shortcut icon" href="favicon.ico">-->
+<title>Blahggerz</title>
+<meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+<style>
+body
+{ 
+background-image:url('''+img+''');
+background-repeat:no-repeat;
+background-attachment:fixed;
+background-position:center
+}
+body {
+    font-family: Futura, Helvetica, sans-serif;
+    text-align: Center;
+    <!--color: rgb(255,255,255);-->
+}
+</style>
+</head>
+
   <body>
     <h1>hi post here</h1>
     <form method="post">
-      <input type="text" name="post" placeholder="Write post here!">
-
-      <input type="submit" name="postButton" value="post">
+      <div class="container">
+      <input type="text" name="post" class="form-control" placeholder="Write post here!">
+      </div>
+      <div class="container">
+	<input type="submit" name="postButton" class="btn btn-smll btn-primary btn-block" value="post">
+      </div>
     </form>
 
   </body>
