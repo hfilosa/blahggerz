@@ -6,12 +6,25 @@ import shelve
 
 app = Flask(__name__)
 
-s = shelve.open('users.db', writeback = True)
-s['wayez'] = {'password' : 'chowdhury'}
-s['winton'] = {'password' : 'yee'}
-s['jerry'] = {'password' : 'lei'}
-s['kathy'] = {'password' : 'wang'}
-s.close()
+conn = sqlite3.connect("userList.db")
+c = conn.cursor()
+###CREATED TABLE CONTAINING USERNAMES AND PASSWORDS AND HARDCODED ALL OF OUR NAMES INTO IT
+#c.execute('''CREATE TABLE usersList (user text, pass text)''')
+#c.execute("INSERT INTO usersList VALUES ('wayez','chowdhury')")
+#c.execute("INSERT INTO usersList VALUES ('winton','yee')")
+#c.execute("INSERT INTO usersList VALUES ('kathy','wang')")
+#c.execute("INSERT INTO usersList VALUES ('jerry','lei')")
+
+###FOR DEVUGGING PURPOSES
+#q = 'SELECT DISTINCT usersList.user,usersList.pass FROM usersList'
+#result = c.execute(q)
+#p = 0
+#for x in result:
+#	print x
+conn.commit()
+conn.close()
+
+#utils.authenticate('wayez', 'chowdhury')
 
 # SQLITE POST TABLE CREATION 
 #posts = "posts.db" 
