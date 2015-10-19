@@ -86,8 +86,10 @@ def posts():
 	if request.method=="GET":
 		return render_template("posts.html", username = "", posts = posts, comments = [])
 	if request.method=="POST":
-		button = request.form['button']
+		button = request.form['button0']
+		print "REX"
 		if button == "Write New Post":
+			print "Over HEre"
 			return render_template("postnew.html", username = currentUser)
 		return render_template("posts.html", username = currentUser, posts = posts, comments = [])
 

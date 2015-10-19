@@ -82,8 +82,9 @@ def deletePost(postNum):
 def getPosts():
 	conn = sqlite3.connect("posts.db")
 	c = conn.cursor()
-	posts = c.execute("SELECT DISTINCT * FROM postsList")
+	posts = c.execute("SELECT DISTINCT * FROM postsList ORDER BY postsList.postNum DESC")
 	conn.commit()
 	return posts
+	conn.close()
 
 	

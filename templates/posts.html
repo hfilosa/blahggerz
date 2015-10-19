@@ -35,19 +35,21 @@ body {
 <h2>A new way to blahg.</h2>
 <p>
 <form method="post">
-<input type="submit" class="btn btn-smll btn-primary btn-block" name ="button" value="Write New Post">
-<table>
+<input type="submit" class="btn btn-smll btn-primary btn-block" name ="button0" value="Write New Post">
+</form>
+<form method="post">
+<center><table>
 {% for x in posts %}
 <tr>
-	<td>
+	<th>
 		{{x[2]}}
-	</td>
+	</th>
 	<td>
 		<input type="submit" class="btn btn-smll btn-primary btn-block" name ="button" value={{x[3]}}>
 	</td>
 </tr>
-</table>
 {% endfor %}
+</table></center>
 </form>
 </body>
 </html>
