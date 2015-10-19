@@ -35,12 +35,17 @@ body {
 <h2>A new way to blahg.</h2>
 <p>
 <form method="post">
-<input type="submit" class="btn btn-smll btn-primary btn-block" name ="button0" value="Write New Post">
+<div class = "container">
+<input type="submit" name ="button0" value="Write New Post">
+</div>
 </form>
 <form method="post">
 <center><table>
 {% for x in posts %}
 <tr>
+	<th>
+		{{x[0]}}
+	</th>
 	<th>
 		{{x[2]}}
 	</th>
