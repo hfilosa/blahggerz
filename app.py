@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for, session
 import datetime
 import utils
 import sqlite3
@@ -12,7 +12,11 @@ app = Flask(__name__)
 #posts = "posts.db" 
 #con=sqlite3.connect(posts)
 #c = con.cursor()
-
+#conn = sqlite3.connect("posts.db")
+#c = conn.cursor()
+#results = c.execute('SELECT * FROM postsList')
+#for x in results:
+#	print x
 
 #currentTime = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
 #print utils.addPost('wayez', currentTime, 'test post')
@@ -32,9 +36,12 @@ def index():
         password=request.form['password']
         if button=="Login":
             if utils.authenticate(username,password) == "success":
+            	#session["user"] = username
+            	#session['logged_in'] = True
+                #print currentUser
                 currentUser = username
                 posts = utils.getPosts()
-                return render_template("posts.html", username=username, posts = posts, comments = [])
+                return redirect("/posts") #, username=username) #, posts = posts, comments = [])
             elif utils.authenticate(username,password) == "noUser":
             	return render_template("index.html", log = "noUser")
             else:
@@ -63,35 +70,44 @@ def register():
         else:
             return "bye"
 
+
 @app.route("/postnew", methods=["GET","POST"])
 def postnew():
-    if request.method=="GET":
-        return render_template("postnew.html", username = currentUser)
-    if request.method=="POST":
-    	postButton = request.form['postButton']
+#	if session['logged_in'] == False:
+#		return redirect("/index")
+	if request.method=="GET":
+		return render_template("postnew.html", username = currentUser)
+	if request.method=="POST":
+		postButton = request.form['postButton']
     	uname = currentUser
+    	###
     	time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
     	msg = request.form['post']
     	if postButton == "post": 
             utils.addPost(uname, time, msg)
             posts = utils.getPosts()
-            return render_template("posts.html", username = currentUser, posts = posts, comments = [])
-            #return render_template("postnew.html")
-    else:
-            return "doodoo"
+            return redirect("/posts") #render_template("posts.html", username = currentUser, posts = posts, comments = [])
 
 @app.route("/posts", methods=["GET","POST"])
 def posts():
+#	if session['logged_in'] == False:
+#		return redirect("/index")
 	posts = utils.getPosts()
 	if request.method=="GET":
-		return render_template("posts.html", username = "", posts = posts, comments = [])
+		return render_template("posts.html", username = currentUser, posts = posts, comments = [])
 	if request.method=="POST":
 		button = request.form['button0']
 		print "REX"
 		if button == "Write New Post":
 			print "Over HEre"
-			return render_template("postnew.html", username = currentUser)
+			return redirect("/postnew") #("postnew.html", username = currentUser)
 		return render_template("posts.html", username = currentUser, posts = posts, comments = [])
+
+#@app.route("/logout")
+#def logout():
+#	session["user"]=""
+#	session['logged_in'] = False
+#	return redirect("/index")
 
 
         
