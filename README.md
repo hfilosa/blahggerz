@@ -19,11 +19,13 @@ Features:<ul>
 
 How to Use:<ul>
 <li>Sign up, login, and start posting!</li>
+</ul>
 
 Deadlines:<ul>
 <l1>10/12: Get templates of all the HTML and backEnd files up</li>
 <li>10/15: Get login working and basic Boostrap running</li>
 <l1>10/17: Get posting working</li>
+</ul>
 
 Potential features:<ul>
 <li>Removing stories and comments</li>
