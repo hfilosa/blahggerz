@@ -13,13 +13,6 @@ app = Flask(__name__)
 #con=sqlite3.connect(posts)
 #c = con.cursor()
 
-conn = sqlite3.connect("posts.db")
-c = conn.cursor()
-results = c.execute("SELECT * FROM postsList")
-for x in results:
-	print x
-conn.commit()
-conn.close()
 
 #currentTime = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
 #print utils.addPost('wayez', currentTime, 'test post')
