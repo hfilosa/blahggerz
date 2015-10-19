@@ -33,7 +33,8 @@ def index():
         if button=="Login":
             if utils.authenticate(username,password) == "success":
                 currentUser = username
-                return render_template("homepage.html",username=username)
+                posts = utils.getPosts()
+                return render_template("posts.html", username=username, posts = posts, comments = [])
             elif utils.authenticate(username,password) == "noUser":
             	return render_template("index.html", log = "noUser")
             else:
@@ -65,7 +66,7 @@ def register():
 @app.route("/postnew", methods=["GET","POST"])
 def postnew():
     if request.method=="GET":
-        return render_template("postnew.html")
+        return render_template("postnew.html", username = currentUser)
     if request.method=="POST":
     	postButton = request.form['postButton']
     	uname = currentUser
@@ -73,16 +74,22 @@ def postnew():
     	msg = request.form['post']
     	if postButton == "post": 
             utils.addPost(uname, time, msg)
-            return render_template("posts.html")
+            posts = utils.getPosts()
+            return render_template("posts.html", username = currentUser, posts = posts, comments = [])
             #return render_template("postnew.html")
     else:
             return "doodoo"
 
-@app.route("/posts")
+@app.route("/posts", methods=["GET","POST"])
 def posts():
-    #for row in con:
-    #    print row
-    return render_template("posts.html")
+	posts = utils.getPosts()
+	if request.method=="GET":
+		return render_template("posts.html", username = "", posts = posts, comments = [])
+	if request.method=="POST":
+		button = request.form['button']
+		if button == "Write New Post":
+			return render_template("postnew.html", username = currentUser)
+		return render_template("posts.html", username = currentUser, posts = posts, comments = [])
 
 
         

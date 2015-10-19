@@ -26,13 +26,28 @@ body {
 </style>
 </head>
 
-<!-- copied from index.html @winton let me know if needs fix -->
-</head>
+
 
 <html>
 <body>
 
-{{fill}}
-
+<h1><font size="+10">Blahggerz</font></h1>
+<h2>A new way to blahg.</h2>
+<p>
+<form method="post">
+<input type="submit" class="btn btn-smll btn-primary btn-block" name ="button" value="Write New Post">
+<table>
+{% for x in posts %}
+<tr>
+	<td>
+		{{x[2]}}
+	</td>
+	<td>
+		<input type="submit" class="btn btn-smll btn-primary btn-block" name ="button" value={{x[3]}}>
+	</td>
+</tr>
+</table>
+{% endfor %}
+</form>
 </body>
 </html>

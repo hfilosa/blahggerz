@@ -70,7 +70,6 @@ def findPostNum():
 	for x in nums:
 		return x[0]
 		break
-	
 
 def deletePost(postNum):
 	conn = sqlite3.connect("posts.db")
@@ -79,5 +78,12 @@ def deletePost(postNum):
 	conn.commit()
 	conn.close()
 	print("success")
+	
+def getPosts():
+	conn = sqlite3.connect("posts.db")
+	c = conn.cursor()
+	posts = c.execute("SELECT DISTINCT * FROM postsList")
+	conn.commit()
+	return posts
 
 	
