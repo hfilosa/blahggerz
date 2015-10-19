@@ -53,14 +53,12 @@ def register():
 @app.route("/postnew", methods=["GET","POST"])
 def postnew():
 	if request.method=="GET":
-		return render_template("postnew.html", username = currentUser)
+            return render_template("postnew.html", username = currentUser)
 	if request.method=="POST":
-		postButton = request.form['postButton']
-    	uname = currentUser
-    	###
-    	time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
-    	msg = request.form['post']
-    	if postButton == "post": 
+            postButton = request.form['postButton']
+            uname = currentUser
+            time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+            msg = request.form['post']
             utils.addPost(uname, time, msg)
             posts = utils.getPosts()
             return redirect("/posts") #render_template("posts.html", username = currentUser, posts = posts, comments = [])
@@ -69,14 +67,12 @@ def postnew():
 def posts():
 	posts = utils.getPosts()
 	if request.method=="GET":
-		return render_template("posts.html", username = currentUser, posts = posts, comments = [])
+            return render_template("posts.html", username = currentUser, posts = posts, comments = [])
 	if request.method=="POST":
-		button = request.form['button0']
-		print "REX"
-		if button == "Write New Post":
-			print "Over HEre"
-			return redirect("/postnew") #("postnew.html", username = currentUser)
-		return render_template("posts.html", username = currentUser, posts = posts, comments = [])
+            button = request.form['button0']
+            if button == "Write New Post":
+                return redirect("/postnew") #("postnew.html", username = currentUser)
+            return render_template("posts.html", username = currentUser, posts = posts, comments = [])
 
 
 
