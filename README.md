@@ -2,8 +2,9 @@
 softdev pd5 blog project
 by Wayez Chowdhury, Winton Yee, Jerry Lei, Kathy Wang
 
-Description:<ol>
+Description:<ul>
 <li> Blahggerz combines the best parts of a blog and a forum. </li>
+</ul>
 
 Roles:<ol>
 <li>Leader: Kathy Wang</li>
