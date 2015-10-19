@@ -38,7 +38,6 @@ def index():
             	return render_template("index.html", log = "noUser")
             else:
             	return render_template("index.html", log = "fail")
-                return "Wrong combo"
         #if button=="Post":            
         else:
             return "bye"
@@ -65,15 +64,7 @@ def register():
 
 @app.route("/postnew", methods=["GET","POST"])
 def postnew():
-    #posts = "posts.db"
-    #con=sqlite3.connect(posts)
-    #c = con.cursor()
-
     if request.method=="GET":
-#        s = ''
-#        for row in con:
-#            s += row
-#        return s
         return render_template("postnew.html")
     if request.method=="POST":
     	postButton = request.form['postButton']
@@ -81,13 +72,11 @@ def postnew():
     	time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
     	msg = request.form['post']
     	if postButton == "post": 
-    		utils.addPost(uname, time, msg)
-        #	c.execute("INSERT INTO posts VALUES(%s, %s, %s)", uname, time, msg)
-        #	con.commit()
-        	return render_template("posts.html")
+            utils.addPost(uname, time, msg)
+            return render_template("posts.html")
             #return render_template("postnew.html")
-        else:
-        	return "doodoo"
+    else:
+            return "doodoo"
 
 @app.route("/posts")
 def posts():
