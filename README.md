@@ -11,10 +11,9 @@ Roles:<ol>
 
 Features:<ul>
 <li>Login/Registration</li>
-<li>Adding/Removing Story</li>
+<li>Commenting on stories</li>
 </ul>
 
 Future Features:<ul>
-<li>Login/Registration</li>
 <li>Login/Registration</li>
 </ul>
