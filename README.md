@@ -17,6 +17,15 @@ Features:<ul>
 <li>Adding a new line to a story</li>
 </ul>
 
+How to Use:<ul>
+<li>Sign up, login, and start posting!</li>
+
+Deadlines:<ul>
+<l1>10/12: Get templates of all the HTML and backEnd files up</li>
+<li>10/15: Get login working and basic Boostrap running</li>
+<l1>10/17: Get posting working</li>
+
 Potential features:<ul>
 <li>Removing stories and comments</li>
 </ul>
+
