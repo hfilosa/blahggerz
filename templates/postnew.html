@@ -27,11 +27,38 @@ body {
 </head>
 
   <body>
-    <h1>hi post here</h1>
+<nav class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Blahggerz</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/posts">Home</a></li>
+	    <li><a href = "/index">Login</a><li>
+	        <li><a href="/register">Sign Up</a><li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          </ul>
+      </div>
+    </nav>
+<br>
+<br>
+<br>
+<br>
+<h1><font size = "+10">Blahggerz</font></h1>
+<h2>What's on your mind?</h2>
+
     <form method="post">
       <div class="container">
       <input type="text" name="post" class="form-control" placeholder="Write post here!">
       </div>
+<br>
       <div class="container">
 	<input type="submit" name="postButton" class="btn btn-smll btn-primary btn-block" value="post">
       </div>
