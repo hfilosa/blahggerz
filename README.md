@@ -1,5 +1,5 @@
 #<h1> blahggerz </h1>
-softdev pd5 blog project
+Soft Dev -- Pd.5  Blog Project
 by Wayez Chowdhury, Winton Yee, Jerry Lei, Kathy Wang
 
 Description:<ul>
