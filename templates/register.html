@@ -26,7 +26,34 @@ body {
 </style>
 </head>
 
+
+<nav class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Blahggerz</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/posts">Home</a></li>
+	        <li><a href="/index">Login</a><li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          </ul>
+      </div>
+    </nav>
+
+
+
+
 <body>
+<br>
+<br>
+<br>
 <h1>Blahggerz</h1>
 {% if taken == True %}
 	Sorry that username is taken, please enter a different one
@@ -43,11 +70,9 @@ body {
 	     <input type="password" name="password" class="form-control" placeholder="Password" required>
 	   </div>
 	   <div class="container">
-	     <input type="submit" class="btn btn-smll btn-primary btn-block" name ="button" value="Register">
+	     <br><input type="submit" class="btn btn-smll btn-primary btn-block" name ="button" value="Register">
 	</form>
-	Already have an account?
-	<br>
-	<a href="/index">Login Here!</a>
+
 {% endif %}
 </body>
 </html>
