@@ -7,6 +7,7 @@ Roles:<ol>
 <li>UX: Winton Yee</li>
 <li>Back End: Wayez Chowdhury</li>
 <li>Middeleware: Jerry Lei</li>
+</ol>
 
 Features:<ul>
 <li>Login/Registration</li>
