@@ -6,32 +6,20 @@ import shelve
 
 app = Flask(__name__)
 
-#print utils.add('peter', 'stuyvesant')
-
-
-conn = sqlite3.connect("userList.db")
-c = conn.cursor()
-###CREATED TABLE CONTAINING USERNAMES AND PASSWORDS AND HARDCODED ALL OF OUR NAMES INTO IT
-#c.execute('''CREATE TABLE usersList (user text, pass text)''')
-#c.execute("INSERT INTO usersList VALUES ('wayez','chowdhury')")
-#c.execute("INSERT INTO usersList VALUES ('winton','yee')")
-#c.execute("INSERT INTO usersList VALUES ('kathy','wang')")
-#c.execute("INSERT INTO usersList VALUES ('jerry','lei')")
-
-###FOR DEVUGGING PURPOSES
-#q = 'SELECT DISTINCT usersList.user,usersList.pass FROM usersList'
-#result = c.execute(q)
-#p = 0
-#for x in result:
-#	print x
-conn.commit()
-conn.close()
-
+#print utils.add('peter', 'stuyvesant')s
 #print utils.authenticate('wayez', 'chowdhury')
 # SQLITE POST TABLE CREATION 
 #posts = "posts.db" 
 #con=sqlite3.connect(posts)
 #c = con.cursor()
+
+conn = sqlite3.connect("posts.db")
+c = conn.cursor()
+results = c.execute("SELECT * FROM postsList")
+for x in results:
+	print x
+conn.commit()
+conn.close()
 
 currentUser = ""
 
@@ -77,35 +65,37 @@ def register():
         else:
             return "bye"
 
-@app.route("/postnew") #, methods=["GET","POST"])
+@app.route("/postnew", methods=["GET","POST"])
 def postnew():
-    posts = "posts.db"
-    con=sqlite3.connect(posts)
-    c = con.cursor()
+    #posts = "posts.db"
+    #con=sqlite3.connect(posts)
+    #c = con.cursor()
 
-    #if request.method=="GET":
+    if request.method=="GET":
 #        s = ''
 #        for row in con:
 #            s += row
 #        return s
-    #    return render_template("postnew.html")
-    #if request.method=="POST":
-    postButton = request.form['postButton']
-    uname = currentUser
-    time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
-    msg = request.form['post']
-    if postButton == "post": 
-        c.execute("INSERT INTO posts VALUES(%s, %s, %s)", uname, time, msg)
-        con.commit()
-        return "got here"
+        return render_template("postnew.html")
+    if request.method=="POST":
+    	postButton = request.form['postButton']
+    	uname = currentUser
+    	time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+    	msg = request.form['post']
+    	if postButton == "post": 
+    		utils.addPost(uname, time, msg)
+        #	c.execute("INSERT INTO posts VALUES(%s, %s, %s)", uname, time, msg)
+        #	con.commit()
+        	return render_template("posts.html")
             #return render_template("postnew.html")
-        
-#@app.route("/posts")
-#def posts():
-#    for row in con:
-#        print row
-        
-    #return render_template("posts.html")
+        else:
+        	return "doodoo"
+
+@app.route("/posts")
+def posts():
+    #for row in con:
+    #    print row
+    return render_template("posts.html")
 
 
         

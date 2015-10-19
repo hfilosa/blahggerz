@@ -53,3 +53,25 @@ def inputUser(username, password):
 	c.execute('INSERT INTO usersList VALUES (?, ?)', (username, password))
 	conn.commit()
 	conn.close()
+	
+def addPost(user, time, message):
+	conn = sqlite3.connect("posts.db")
+	c = conn.cursor()
+	n = findPostNum()
+	c.execute('INSERT INTO postsList VALUES (?, ?, ?, ?)', (user, time, message, n))
+	conn.commit()
+	conn.close()
+	
+def findPostNum():
+	conn = sqlite3.connect("posts.db")
+	c = conn.cursor()
+	nums = c.execute('SELECT postsList.postNum FROM postsList ORDER BY postsList.postNum DESC')
+	return nums[0] + 1
+	
+def deletePost(user, time, message):
+	conn = sqlite3.connect("posts.db")
+	c = conn.cursor()
+	c.execute('INSERT INTO postsList VALUES (?, ?, ?)', (user, time, message))
+	conn.commit()
+	conn.close()
+	
