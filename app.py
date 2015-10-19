@@ -21,6 +21,11 @@ for x in results:
 conn.commit()
 conn.close()
 
+#currentTime = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+#print utils.addPost('wayez', currentTime, 'test post')
+#print utils.deletePost(2)
+#print utils.deletePost(3)
+
 currentUser = ""
 
 @app.route("/index", methods=["GET","POST"])
