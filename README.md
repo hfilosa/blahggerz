@@ -14,7 +14,7 @@ Roles:<ol>
 
 Features:<ul>
 <li>Login/Registration</li>
-<li>Commenting on stories</li>
+<li>Adding a new line to a story</li>
 </ul>
 
 Potential features:<ul>
