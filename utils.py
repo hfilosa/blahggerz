@@ -1,16 +1,23 @@
 import shelve, sqlite3
+from pymongo import MongoClient
+
+data_base = 'userList'
+
+#database is 'userList'
+#table of user is 'users'
+#fields: uname, passwd
 
 def authenticate(uname,pword):
-	conn = sqlite3.connect("userList.db")
-	c = conn.cursor()
+	conn = MongoClient()
+        db = connection[data_base]
 	q = 'SELECT usersList.user FROM usersList WHERE usersList.pass = %(user)s'
 	userN = str(uname)
 	passW = str(pword)
-	result = c.execute('SELECT DISTINCT usersList.pass FROM usersList WHERE usersList.user = ?', (userN,))
-	#result = c.execute('SELECT DISTINCT usersList.user FROM usersList WHERE usersList.user == ? AND usersList.pass == ?', cred)
+        result = db.users.find({username : userN} , {passwd: 1})
+
+#	result = c.execute('SELECT DISTINCT usersList.pass FROM usersList WHERE usersList.user = ?', (userN,))
+
 	return loginResponse(result, passW)
-	conn.commit()
-	conn.close()
 
 def loginResponse(realPass, inputPass):
 	for x in realPass:
@@ -18,41 +25,31 @@ def loginResponse(realPass, inputPass):
 			return "success"
 		return "fail"
 	return "noUser"
-	
-	#itWorked = False
-	#s = shelve.open('users.db')
-	##user = str(uname)
-	#account = s.has_key(user)
-	#if (account and s[user]["password"] == pword):
-	#	itWorked = True
-	#else:
-	#	itWorked = False
-	#s.close()
-	#return itWorked
+
 
 def add(uname, pword):
 	response = "failed"
-	conn = sqlite3.connect("userList.db")
-	c = conn.cursor()
+	conn = MongoClient()
+        db = connection[data_base]
 	userN = str(uname)
 	passW = str(pword)
-	result = c.execute('SELECT DISTINCT usersList.user,usersList.pass FROM usersList WHERE usersList.user = ?', (userN,))
+
+        result = db.users.find({uname : userN})
+#	result = c.execute('SELECT DISTINCT usersList.user,usersList.pass FROM usersList WHERE usersList.user = ?', (userN,))
 	for x in result:
 		if x[0] == userN:
 			response = "taken"
 	if response != "taken":
 		response = "success"
 		inputUser(userN, passW)
-	conn.commit()
-	conn.close()
+
 	return response
 
 def inputUser(username, password):
-	conn = sqlite3.connect("userList.db")
-	c = conn.cursor()
-	c.execute('INSERT INTO usersList VALUES (?, ?)', (username, password))
-	conn.commit()
-	conn.close()
+	conn = MongoClient()
+	db = connection[data_base]
+        db.users.insert({uname : username , passwd : password})
+#	c.execute('INSERT INTO usersList VALUES (?, ?)', (username, password))
 	
 def addPost(user, time, message):
 	conn = sqlite3.connect("posts.db")
