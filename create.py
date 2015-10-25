@@ -1,7 +1,17 @@
 import sqlite3, datetime
+from pymongo import MongoClient
 
-conn = sqlite3.connect("userList.db")
-c = conn.cursor()
+data_base = 'data'
+
+conn = MongoClient()
+db = connection[data_ base]
+
+currentTime = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:\%M:%S')
+
+db.users.insert({uname : "Chlo" , passwd : "pass"})
+db.posts.insert({user : "Chlo" , time : currentTime , msg : "Trying to Mongo", postNum : 1})
+db.comments.insert()
+
 ###CREATED TABLE CONTAINING USERNAMES AND PASSWORDS AND HARDCODED ALL OF OUR NAMES INTO IT
 #c.execute('''CREATE TABLE usersList (user text, pass text)''')
 #c.execute("INSERT INTO usersList VALUES ('wayez','chowdhury')")
@@ -15,11 +25,6 @@ c = conn.cursor()
 #p = 0
 #for x in result:
 #	print x
-conn.commit()
-conn.close()
-
-conn = sqlite3.connect("posts.db")
-c = conn.cursor()
 
 c.execute('''CREATE TABLE postsList (user text, time text, msg txt, postNum int)''')
 c.execute('''CREATE TABLE comments (user text, time text, msg txt, postNum int)''')

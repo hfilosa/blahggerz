@@ -1,7 +1,7 @@
 import shelve, sqlite3
 from pymongo import MongoClient
 
-data_base = 'userList'
+data_base = 'data'
 
 #database is 'userList'
 #table of user is 'users'
