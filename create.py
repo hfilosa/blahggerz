@@ -10,7 +10,7 @@ currentTime = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:\
 
 db.users.insert({uname : "Chlo" , passwd : "pass"})
 db.posts.insert({user : "Chlo" , time : currentTime , msg : "Trying to Mongo", postNum : 1})
-db.comments.insert()
+db.comments.insert({user : "Chloe" , time : currentTime, msg : "good luck", commNum : 1})
 
 ###CREATED TABLE CONTAINING USERNAMES AND PASSWORDS AND HARDCODED ALL OF OUR NAMES INTO IT
 #c.execute('''CREATE TABLE usersList (user text, pass text)''')
@@ -26,13 +26,11 @@ db.comments.insert()
 #for x in result:
 #	print x
 
-c.execute('''CREATE TABLE postsList (user text, time text, msg txt, postNum int)''')
-c.execute('''CREATE TABLE comments (user text, time text, msg txt, postNum int)''')
-currentUser = "wayez"
-currentTime = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
-message = "This is the very first post of blahggerz"
-c.execute("INSERT INTO postsList VALUES (?, ?, ?, 1)", (currentUser, currentTime, message))
+#c.execute('''CREATE TABLE postsList (user text, time text, msg txt, postNum int)''')
+#c.execute('''CREATE TABLE comments (user text, time text, msg txt, postNum int)''')
+#currentUser = "wayez"
+#currentTime = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+#message = "This is the very first post of blahggerz"
+#c.execute("INSERT INTO postsList VALUES (?, ?, ?, 1)", (currentUser, currentTime, message))
 
 
-conn.commit()
-conn.close()
