@@ -6,9 +6,11 @@ conn = MongoClient()
 db = conn[data_base]
 
 currentTime = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:\%M:%S')
-users = db['user_db']
-posts = db['post-db']
-comments = db['comment_db']
+
+#not sure if these are necessary but my mongo won't run, can anyone else check?
+#users = db['user_db']
+#posts = db['post-db']
+#comments = db['comment_db']
 
 db.users.insert({'uname' : "Chlo" , 'passwd' : "pass"})
 db.posts.insert({'user' : "Chlo" , 'time' : currentTime , 'msg' : "Trying to Mongo", 'postNum' : 1})
