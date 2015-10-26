@@ -2,7 +2,6 @@ import sqlite3, datetime
 from pymongo import MongoClient
 
 data_base = 'data'
-
 conn = MongoClient()
 db = conn['userList']
 

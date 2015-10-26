@@ -9,11 +9,11 @@ data_base = 'data'
 
 def authenticate(name,word):
 	conn = MongoClient()
-        db = connection[data_base]
+        db = conn[data_base]
 #	q = 'SELECT usersList.user FROM usersList WHERE usersList.pass = %(user)s'
 	userN = str(name)
 	passW = str(pword)
-        result = db.users.find({uname : userN} , {passwd: passW})
+        result = db.users.find({'uname' : userN} , {'passwd': passW})
 
 #	result = c.execute('SELECT DISTINCT usersList.pass FROM usersList WHERE usersList.user = ?', (userN,))
 
@@ -30,11 +30,11 @@ def loginResponse(realPass, inputPass):
 def add(uname, pword):
 	response = "failed"
 	conn = MongoClient()
-        db = connection[data_base]
+        db = conn[data_base]
 	userN = str(uname)
 	passW = str(pword)
 
-        result = db.users.find({uname : userN})
+        result = db.users.find({'uname' : userN})
 #	result = c.execute('SELECT DISTINCT usersList.user,usersList.pass FROM usersList WHERE usersList.user = ?', (userN,))
 	for x in result:
 		if x[0] == userN:
@@ -47,21 +47,21 @@ def add(uname, pword):
 
 def inputUser(username, password):
 	conn = MongoClient()
-	db = connection[data_base]
-        db.users.insert({uname : username , passwd : password})
+	db = conn[data_base]
+        db.users.insert({'uname' : username , 'passwd' : password})
 #	c.execute('INSERT INTO usersList VALUES (?, ?)', (username, password))
 	
 def addPost(userN, timeT, message):
 	conn = MongoClient()
-	db = connection[data_base]
+	db = conn[data_base]
 	n = findPostNum() + 1
-	db.posts.insert({user : userN, time: timeT, msg : message})
+	db.posts.insert({'user' : userN, 'time': timeT, 'msg' : message})
 #	c.execute('INSERT INTO postsList VALUES (?, ?, ?, ?)', (user, time, message, n))
 	#print("success")
 	
 def findPostNum():
 	conn = MongoClient()
-	db = connection[data_base]
+	db = conn[data_base]
 	nums = c.execute('SELECT postsList.postNum FROM postsList ORDER BY postsList.postNum DESC')
 	for x in nums:
 		return x[0]
@@ -69,14 +69,14 @@ def findPostNum():
 
 def deletePost(postN):
 	conn = MongoClient()
-	db = connection[data_base]
+	db = conn[data_base]
 #	c.execute('DELETE FROM postsList WHERE postsList.postNum = ?', (postNum,))
-	db.posts.remove({postNum : postN})
+	db.posts.remove({'postNum' : postN})
 	print("success")
 	
 def getPosts():
 	conn = MongoClient()
-	db = connection[data_base]
+	db = conn[data_base]
 	allPosts = db.posts.find({})
 #	posts = c.execute("SELECT DISTINCT * FROM postsList ORDER BY postsList.postNum DESC")
 	return allPosts
