@@ -18,7 +18,7 @@ def index():
     if 'user' not in session:
         session['user'] = 'Anonymous'
     if request.method=="GET":
-        return render_template("index.html", log  = "" )
+        return render_template("index.html", log  = "", s=session )
     if request.method=="POST":
         button = request.form['button']
         username=request.form['username']
@@ -31,16 +31,16 @@ def index():
                 posts = utils.getPosts()
                 return redirect("/posts")
             elif utils.authenticate(username,password) == "noUser":
-            	return render_template("index.html", log = "noUser")
+            	return render_template("index.html", log = "noUser", s=session)
             else:
-            	return render_template("index.html", log = "fail")
+            	return render_template("index.html", log = "fail", s=session)
         else:
             return "bye"
             
 @app.route("/register", methods = ["GET", "POST"])
 def register():
     if request.method=="GET":
-    	return render_template("register.html", taken = False, success = False)
+    	return render_template("register.html", taken = False, success = False, s=session)
     if request.method=="POST":
         button = request.form['button']
         username=request.form['username']
@@ -48,9 +48,9 @@ def register():
         if button=="Register":
         	response = utils.add(username,password)
         	if response == "taken":
-        		return render_template("register.html", taken = True, success = False)
+        		return render_template("register.html", taken = True, success = False, s=session)
         	elif response == "success":
-        		return render_template("register.html", taken = False, success = True)
+        		return render_template("register.html", taken = False, success = True, s=session)
         	else:
         		return "Wrong combo"
         else:
@@ -62,7 +62,7 @@ def postnew():
     if session['logged_in'] == False:
         return redirect('/index')
     if request.method=="GET":
-        return render_template("postnew.html", username = session['user'])
+        return render_template("postnew.html", username = session['user'], s=session)
     if request.method=="POST":
         postButton = request.form['postButton']
         uname = session['user']
@@ -79,12 +79,12 @@ def posts():
     if session['logged_in'] == False:
         return redirect('/index')
     if request.method=="GET":
-        return render_template("posts.html", username = session['user'], posts = posts, comments = [])
+        return render_template("posts.html", username = session['user'], posts = posts, comments = [], s=session)
     if request.method=="POST":
         button = request.form['button0']
         if button == "Write New Post":
             return redirect("/postnew") #("postnew.html", username = currentUser)
-        return render_template("posts.html", username = session['user'], posts = posts, comments = [])
+        return render_template("posts.html", username = session['user'], posts = posts, comments = [],s=session)
 
 
 @app.route("/logout")

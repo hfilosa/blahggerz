@@ -19,13 +19,13 @@ def authenticate(name,word):
 	return "noUser"
 
 def add(uname, pword):
-	connection = MongoClient()
-        db = connection['userList']
-	x = db.users.find({'uname': uname})
-    	if x.count() > 1:
-		return "taken"
-	db.users.insert({'uname' : uname} , {'passwd': pword})
-	return "success"
+    connection = MongoClient()
+    db = connection['userList']
+    x = db.users.find({'uname': uname})
+    if x.count() > 1:
+        return "taken"
+    db.users.insert({'uname' : uname} , {'passwd': pword})
+    return "success"
 
 def addPost(userN, timeT, message):
 	connection = MongoClient()
