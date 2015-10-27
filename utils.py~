@@ -26,8 +26,7 @@ def add(uname, pword):
 	connection = MongoClient()
         db = connection['userList']
 	if db.users.find({'uname': uname}):
-		print "62"
-		print db.users.find({'uname': uname})
+		print db.users.find({'uname': uname},{_id:False})
 		return "taken"
 	db.users.input({'uname' : uname} , {'passwd': pword})
 	return "success"
