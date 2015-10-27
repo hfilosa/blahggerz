@@ -28,22 +28,18 @@ def loginResponse(realPass, inputPass):
 
 
 def add(uname, pword):
-	response = "failed"
-	conn = MongoClient()
-        db = conn[data_base]
-	userN = str(uname)
-	passW = str(pword)
-
-        result = db.users.find({'uname' : userN})
-#	result = c.execute('SELECT DISTINCT usersList.user,usersList.pass FROM usersList WHERE usersList.user = ?', (userN,))
-	for x in result:
-		if x[0] == userN:
-			response = "taken"
-	if response != "taken":
-		response = "success"
-		inputUser(userN, passW)
-
-	return response
+    response = "failed"
+    conn = MongoClient()
+    db = conn[data_base]
+    userN = str(uname)
+    passW = str(pword)
+    result = db.users.find({'uname' : userN})
+    if (result.count()>0):
+        response = "taken"
+    if response != "taken":
+        response = "success"
+        inputUser(userN, passW)
+    return response
 
 def inputUser(username, password):
 	conn = MongoClient()
