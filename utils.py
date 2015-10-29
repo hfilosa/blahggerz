@@ -14,7 +14,7 @@ def authenticate(name,word):
     if x.count > 0:
 	n = db.users.find({'uname' : name} , {'passwd': word})
         if n.count > 0:
-			return "sucess"
+			return "success"
         return "fail"
 	return "noUser"
 
@@ -36,12 +36,15 @@ def addPost(userN, timeT, message):
 	#print("success")
 	
 def findPostNum():
-	connection = MongoClient()
-	db = connection['userList']
-	nums = c.execute('SELECT postsList.postNum FROM postsList ORDER BY postsList.postNum DESC')
-	for x in nums:
-		return x[0]
-		break
+    connection = MongoClient()
+    db = connection['userList']
+    nums = db.posts.find() 
+    n = 0
+    for x in nums:
+        print x[0]
+#        n = x[3]
+#        print x[3]
+    return n
 
 def deletePost(postN):
 	connection = MongoClient()
