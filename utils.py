@@ -11,11 +11,16 @@ def authenticate(name,word):
     connection = MongoClient()
     db = connection['userList']
     x = db.users.find({'uname':name})
-    if x.count > 0:
+    for a in x:
+        print a
+    print x.count()
+    if x.count() > 0:
 	n = db.users.find({'uname' : name} , {'passwd': word})
         if n.count > 0:
 			return "success"
-        return "fail"
+        else:
+            return "fail"
+    else:
 	return "noUser"
 
 def add(uname, pword):
