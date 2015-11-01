@@ -7,7 +7,6 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
-
 currentUser = ""
 
 @app.route("/index", methods=["GET","POST"])
@@ -46,13 +45,13 @@ def register():
         username=request.form['username']
         password=request.form['password']
         if button=="Register":
-        	response = utils.add(username,password)
-        	if response == "taken":
-        		return render_template("register.html", taken = True, success = False, s=session)
-        	elif response == "success":
-        		return render_template("register.html", taken = False, success = True, s=session)
-        	else:
-        		return "Wrong combo"
+            response = utils.add(username,password)
+            if response == "taken":
+                return render_template("register.html", taken = True, success = False, s=session)
+            elif response == "success":
+                return render_template("register.html", taken = False, success = True, s=session)
+            else:
+                return "Wrong combo"
         else:
             return "bye"
 
