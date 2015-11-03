@@ -23,13 +23,14 @@ def index():
         username=request.form['username']
         password=request.form['password']
         if button=="Login":
-            if utils.authenticate(username,password) == "success":
+            result = utils.authenticate(username,password)
+            if result == "success":
                 currentUser = username
                 session['user'] = username
                 session['logged_in'] = True
                 posts = utils.getPosts()
                 return redirect("/posts")
-            elif utils.authenticate(username,password) == "noUser":
+            elif result == "noUser":
             	return render_template("index.html", log = "noUser", s=session)
             else:
             	return render_template("index.html", log = "fail", s=session)
