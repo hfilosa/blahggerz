@@ -11,10 +11,16 @@ data_base = 'data'
 def authenticate(name, word):
         connection = MongoClient()
         db = connection['userList']
-        x = db.users.find({'uname':name}).count()
-        if x == 1:
-                n = db.users.find({'uname' : name} , {'passwd': word}).count()
-                if n == 1:
+        x = list(db.users.find({'uname':name}))
+        print x
+        print len(x) #works
+        print "\n-------"
+        if len(x) != 0:
+                n = list(db.users.find({'uname' : name} , {'passwd': word}))
+                print n
+                print len(n)
+                if len(n) != 0:
+                        print "Success"
                         return "success"
                 return "fail"
         return "noUser"
@@ -22,12 +28,17 @@ def authenticate(name, word):
 def add(uname, pword):
         connection = MongoClient()
         db = connection['userList']
-        x = db.users.find({'uname': uname}).count()
+        g = list(db.users.find({"uname":uname}))
+        print g
+        try:
+                x = len(g)
+        except:
+                x = 0
         #x = db.collection.count({uname: "uname"})
         print(x)
         if x > 0:
                 return "taken"
-                db.users.insert({'uname' : uname} , {'passwd': pword})
+        db.users.insert({'uname' : uname} , {'passwd': pword})
         return "success"
 
 def addPost(userN, timeT, message):
@@ -45,8 +56,8 @@ def addPost(userN, timeT, message):
 def hasPost(postN):
         connection = MongoClient()
         db = connection['userList']
-        x = db.posts.find({'postNum':postN})
-        return not(x.count() == 0)
+        x = list(db.posts.find({'postNum':postN}))
+        return not(len(x) == 0)
 
 def deletePost(postN):
         connection = MongoClient()
@@ -58,8 +69,6 @@ def deletePost(postN):
 def getPosts():
 	connection = MongoClient()
         db = connection['userList']
-        allPosts = db.posts.find({})
+        allPosts = list(db.posts.find({}))
         #	posts = c.execute("SELECT DISTINCT * FROM postsList ORDER BY postsList.postNum DESC")
         return allPosts
-
-	
