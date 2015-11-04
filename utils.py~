@@ -16,7 +16,7 @@ def authenticate(name,word):
 		n = db.users.find({'uname' : name} , {'passwd': word})
 		print n.count        	
 		if n.count() == 1:
-			return "success"
+			return "sucess"
         	return "fail"
 	return "noUser"
 
