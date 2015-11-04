@@ -7,7 +7,6 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
-
 currentUser = ""
 
 @app.route("/index", methods=["GET","POST"])
@@ -24,13 +23,14 @@ def index():
         username=request.form['username']
         password=request.form['password']
         if button=="Login":
-            if utils.authenticate(username,password) == "success":
+            result = utils.authenticate(username,password)
+            if result == "success":
                 currentUser = username
                 session['user'] = username
                 session['logged_in'] = True
                 session['posts'] = utils.getPosts()
                 return redirect("/posts")
-            elif utils.authenticate(username,password) == "noUser":
+            elif result == "noUser":
             	return render_template("index.html", log = "noUser", s=session)
             else:
             	return render_template("index.html", log = "fail", s=session)
@@ -46,13 +46,13 @@ def register():
         username=request.form['username']
         password=request.form['password']
         if button=="Register":
-        	response = utils.add(username,password)
-        	if response == "taken":
-        		return render_template("register.html", taken = True, success = False, s=session)
-        	elif response == "success":
-        		return render_template("register.html", taken = False, success = True, s=session)
-        	else:
-        		return "Wrong combo"
+            response = utils.add(username,password)
+            if response == "taken":
+                return render_template("register.html", taken = True, success = False, s=session)
+            elif response == "success":
+                return render_template("register.html", taken = False, success = True, s=session)
+            else:
+                return "Wrong combo"
         else:
             return "bye"
 

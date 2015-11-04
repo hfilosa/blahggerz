@@ -11,7 +11,7 @@ Sorry that username is taken, please enter a different one
 <h3>Congrats! You created a Blahggerz account</h3>
 <a href="/index">Login Here!</a>
 {% else %}
-<form method="post">
+<form method="POST">
   <div class="container">
     <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
   </div>
@@ -19,7 +19,7 @@ Sorry that username is taken, please enter a different one
     <input type="password" name="password" class="form-control" placeholder="Password" required>
   </div>
   <div class="container">
-    <br><input type="submit" class="btn btn-smll btn-primary btn-block" name ="button" value="Register">
+    <br><input type="submit" name ="button" class="btn btn-smll btn-primary btn-block" value="Register">
   </div>
 </form>
 {% endif %}
