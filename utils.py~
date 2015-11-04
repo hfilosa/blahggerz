@@ -1,6 +1,5 @@
 import shelve, sqlite3
 from pymongo import MongoClient
-import random
 
 data_base = 'data'
 
@@ -13,21 +12,19 @@ def authenticate(name,word):
     	db = connection['userList']
     	x = db.users.find({'uname':name})
 	print x.count()
-    	if x.count() == 0:
+    	if x.count() == 1:
 		n = db.users.find({'uname' : name} , {'passwd': word})
 		print n.count        	
-		if n.count() == 0:
-			return "success"
+		if n.count() == 1:
+			return "sucess"
         	return "fail"
 	return "noUser"
 
 def add(uname, pword):
     connection = MongoClient()
     db = connection['userList']
-    x = db.users.find({'uname': uname}).count()
-    #x = db.collection.count({uname: "uname"})
-    print(x)
-    if x > 0:
+    x = db.users.find({'uname': uname})
+    if x.count() > 1:
         return "taken"
     db.users.insert({'uname' : uname} , {'passwd': pword})
     return "success"
@@ -35,20 +32,18 @@ def add(uname, pword):
 def addPost(userN, timeT, message):
 	connection = MongoClient()
 	db = connection['userList']
-	a = 0
-	posts_has_id = True
-	while(posts_has_id):
-		a = random.randint(0, 10000)
-		posts_has_id = hasPost(a)
-	db.posts.insert({'user' : userN, 'time': timeT, 'msg' : message, 'postNum' : a})
+	n = findPostNum() + 1
+	db.posts.insert({'user' : userN, 'time': timeT, 'msg' : message})
 #	c.execute('INSERT INTO postsList VALUES (?, ?, ?, ?)', (user, time, message, n))
 	#print("success")
 	
-def hasPost(postN):
+def findPostNum():
 	connection = MongoClient()
 	db = connection['userList']
-	x = db.posts.find({'postNum':postN})
-	return not(x.count() == 0)
+	nums = c.execute('SELECT postsList.postNum FROM postsList ORDER BY postsList.postNum DESC')
+	for x in nums:
+		return x[0]
+		break
 
 def deletePost(postN):
 	connection = MongoClient()

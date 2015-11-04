@@ -28,7 +28,7 @@ def index():
                 currentUser = username
                 session['user'] = username
                 session['logged_in'] = True
-                posts = utils.getPosts()
+                session['posts'] = utils.getPosts()
                 return redirect("/posts")
             elif result == "noUser":
             	return render_template("index.html", log = "noUser", s=session)
