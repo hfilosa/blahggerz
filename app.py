@@ -47,6 +47,7 @@ def register():
         password=request.form['password']
         if button=="Register":
             response = utils.add(username,password)
+            print response
             if response == "taken":
                 return render_template("register.html", taken = True, success = False, s=session)
             elif response == "success":
